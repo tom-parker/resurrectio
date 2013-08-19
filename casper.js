@@ -111,12 +111,13 @@ CasperRenderer.prototype.render = function(with_xy) {
       this.space();
     
     if(i==0) {
-        if(item.type!=etypes.OpenUrl) {
-            this.text("ERROR: the recorded sequence does not start with a url openning.");
-        } else {
+    	console.log(item);
+        //if(item.type!=etypes.OpenUrl) {
+            //this.text("ERROR: the recorded sequence does not start with a url openning.");
+        //} else {
           this.startUrl(item);
           continue;
-        }
+        //}
     }
 
     // remember last MouseDown to identify drag
@@ -333,7 +334,7 @@ CasperRenderer.prototype.screenShot = function(item) {
   // sure evrything is properly loaded before screenshot.
   this.stmt('casper.wait(1000);');
   this.stmt('casper.then(function() {');
-  this.stmt('    this.captureSelector("screenshot'+this.screen_id+'.png", "html");');
+  this.stmt('css.screenshot("body", 1000);');
   this.stmt('});');
   this.screen_id = this.screen_id + 1;
 }

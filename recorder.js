@@ -54,15 +54,13 @@ if (typeof(TestRecorder.Browser) == "undefined") {
 TestRecorder.Browser.captureEvent = function(wnd, name, func) {
     var lname = name.toLowerCase();
     var doc = wnd.document;
-    wnd.captureEvents(Event[name.toUpperCase()]);
-    wnd["on" + lname] = func;
+    wnd.addEventListener(name, func);
 }
 
 TestRecorder.Browser.releaseEvent = function(wnd, name, func) {
     var lname = name.toLowerCase();
     var doc = wnd.document;
-    wnd.releaseEvents(Event[name.toUpperCase()]);
-    wnd["on" + lname] = null;
+    wnd.removeEventListener(name, func);
 }
 
 TestRecorder.Browser.getSelection = function(wnd) {
@@ -1004,7 +1002,6 @@ TestRecorder.Recorder.prototype.onmouseup = function(e) {
 
 TestRecorder.Recorder.prototype.onclick = function(e) {
     var e = new TestRecorder.Event(e);
-
     if (e.shiftkey()) {
         recorder.check(e);
         e.stopPropagation();
